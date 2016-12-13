@@ -1,24 +1,36 @@
 import sys
+from collections import deque
 read = sys.stdin.readline
 
-n, m, x = map(int, read().split())
-x -= 1
-floyd = [[987654321] * n for row in range(n)]
 
-for i in range(n):
-    floyd[i][i] = 0
+def bfs(graph, visit):
+    q = deque()
+    q.append((x, 0))
+    while q:
+        now, s = q.popleft()
+        for i, w in graph[now]:
+            if s + w < visit[i]:
+                visit[i] = s + w
+                q.append((i, s+w))
 
+n, m, x = map(int, input().split())
+visit = [987654321] * (n+1)
+r_visit = [987654321] * (n+1)
+visit[x] = 0
+r_visit[x] = 0
+
+graph = [[] for i in range(n+1)]
+r_graph = [[] for i in range(n+1)]
 for i in range(m):
     u, v, w = map(int, read().split())
-    floyd[u-1][v-1] = min(floyd[u-1][v-1], w)
+    graph[u].append((v, w))
+    r_graph[v].append((u, w))
 
-for k in range(n):
-    for i in range(n):
-        for j in range(n):
-            floyd[i][j] = min(floyd[i][j], floyd[i][k] + floyd[k][j])
+bfs(graph, visit)
+bfs(r_graph, r_visit)
 
 max_num = 0
-for i in range(n):
-    max_num = max(floyd[i][x] + floyd[x][i], max_num)
+for i in range(1, n+1):
+    max_num = max(max_num, visit[i] + r_visit[i])
+
 print(max_num)
-print(floyd)
