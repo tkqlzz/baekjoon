@@ -55,3 +55,4 @@ s = 0
 for w, v1, v2 in mst:
     s += w
 print(s)
+print(parent)

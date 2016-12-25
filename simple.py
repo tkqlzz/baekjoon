@@ -1,27 +1,31 @@
-import collections
+def eratos(n):
+    setA = set(i for i in range(2, n))
+    for i in range(2, n):
+        if i in setA:
+            j = i
+            while j < n:
+                j += i
+                if j in setA:
+                    setA.remove(j)
+    return setA
+
+eraSet = eratos(1000000)
+while True:
+    x = int(input())
+    if x == 0:
+        break
+    success = False
+    for i in range(3, x-2):
+        a = i
+        b = x - i
+        if a in eraSet and b in eraSet:
+            success = True
+            break
+    if success:
+        print(x, '=', a, '+', b)
+    else:
+        print("Goldbach's conjecture is wrong.")
 
 
-def bfs():
-    visit = [0] * (n+1)
-    q = collections.deque()
-    q.append((0, 0))
-    while q:
-        now, cnt = q.popleft()
-        if now == n-1:
-            print(cnt)
-            return
-        for i in range(1, arr[now]+1):
-            next = now + i
-            if next >= n:
-                continue
-            if visit[next] == 0:
-                q.append((next, cnt + 1))
-                visit[next] = 1
-    print(-1)
-    return
 
 
-n = int(input())
-arr = list(map(int, input().split()))
-
-bfs()
