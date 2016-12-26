@@ -19,6 +19,7 @@ def union(v1, v2):
     if root1 != root2:
         if rank[root1] > rank[root2]:
             parent[root2] = root1
+
         else:
             parent[root1] = root2
             if rank[root1] == rank[root2]:
