@@ -32,7 +32,7 @@ def bfs():
 
 
 m, n = map(int, input().split())
-arr = [[]] * n
+arr = [[]]*n
 for i in range(n):
     arr[i] = list(map(int, input().split()))
 
