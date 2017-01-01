@@ -1,13 +1,16 @@
+import collections
+
+
 def bfs():
     direct = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-    q = []
+    q = collections.deque()
     for i in range(n):
         for j in range(m):
             if arr[i][j] == 1:
                 q.append([i, j])
 
     while q:
-        y, x = q.pop(0)
+        y, x = q.popleft()
         for d in direct:
             dy = y + d[0]
             dx = x + d[1]
@@ -25,11 +28,11 @@ def bfs():
                 return
             if max_num < arr[i][j]:
                 max_num = arr[i][j]
-    print(max_num-1)
+    print(max_num - 1)
 
 
 m, n = map(int, input().split())
-arr = [[]]*n
+arr = [[]] * n
 for i in range(n):
     arr[i] = list(map(int, input().split()))
 
