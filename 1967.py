@@ -12,7 +12,6 @@ def bfs():
     for i in temp:
         q.append(i)
 
-
     while q:
         i = q.popleft()
         is_next = False
